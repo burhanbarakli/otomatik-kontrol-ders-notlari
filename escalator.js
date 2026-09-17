@@ -80,7 +80,7 @@ window.createEscalator=function(root){
       <circle class="esc-sum" cx="181" cy="140" r="20"/><text x="148" y="127" class="esc-sign">+</text><text x="158" y="182" class="esc-sign">−</text><text x="225" y="103" class="esc-small">Hata</text><text id="esc-loop-error" x="238" y="211" class="esc-small">0,000</text>
       <g id="esc-processor"><rect x="252" y="97" width="172" height="86" rx="8"/><text x="338" y="124">İşlemci · PI</text><text id="esc-loop-command" x="338" y="150" class="esc-loop-value">40,0 N·m</text><text id="esc-loop-action" x="338" y="172" class="esc-small">Torku koru</text></g>
       <g id="esc-dac" class="esc-converter"><rect x="468" y="104" width="125" height="72" rx="8"/><text x="530.5" y="132" class="esc-converter-title">DAC</text><text x="530.5" y="157" class="esc-small">Sayısal → analog</text></g>
-      <g><rect x="637" y="104" width="159" height="72" rx="8"/><text x="716.5" y="132">Motor sürücüsü</text><text x="716.5" y="157" class="esc-small">Komutu uygular</text></g>
+      <g><rect x="637" y="104" width="159" height="72" rx="8"/><text x="716.5" y="132">Motor sürücüsü</text><text x="716.5" y="157" class="esc-small">Kuvvetlendirici</text></g>
       <g><rect x="840" y="104" width="206" height="72" rx="8"/><text x="943" y="132">Motor + merdiven</text><text id="esc-loop-torque" x="943" y="157" class="esc-loop-value">40,0 N·m</text></g>
       <text x="1110" y="87" class="esc-small">Gerçek hız</text><text id="esc-loop-speed" x="1110" y="113" class="esc-loop-value">0,500 m/s</text>
       <g><rect x="840" y="239" width="206" height="74" rx="8"/><text x="943" y="266">Hız sensörü</text><text id="esc-loop-measured" x="943" y="294" class="esc-loop-value">0,500 m/s</text></g>
