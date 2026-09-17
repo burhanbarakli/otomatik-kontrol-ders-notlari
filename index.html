@@ -1,476 +1,105 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f7fc">
-<title>Bozucu etki · Yürüyen merdiven · Otomatik Kontrol</title>
-<link rel="stylesheet" href="rolling-mill.css">
-<link rel="stylesheet" href="liquid-tank.css">
-<link rel="stylesheet" href="analog-oven.css">
-<link rel="stylesheet" href="lesson-notes.css">
-<link rel="stylesheet" href="escalator.css">
-<link rel="stylesheet" href="signals.css">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%232950db'/%3E%3Cpath d='M10 12h20v16H10z' fill='none' stroke='white' stroke-width='3'/%3E%3Ccircle cx='10' cy='20' r='4' fill='%23ffc25b'/%3E%3C/svg%3E">
-<style>
-:root{--bg:#f5f7fc;--paper:#fff;--ink:#14243e;--muted:#52637c;--line:#ccd6e6;--blue:#2950db;--tint:#e5edff;--orange:#a84a00;--teal:#087974}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}button{font:inherit;color:inherit;cursor:pointer;min-height:44px;border:1px solid var(--line);border-radius:7px;padding:9px 15px;background:var(--paper);font-weight:600;touch-action:manipulation}button:hover{background:var(--tint)}button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}button[aria-pressed=true]{background:var(--blue);color:#fff;border-color:var(--blue)}
-.board{min-height:100svh;display:flex;flex-direction:column;max-width:1900px;margin:auto;padding:0 3.2vw}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}.brand{font-size:15px;font-weight:700;letter-spacing:.08em}.brand span{font-weight:400;letter-spacing:0;color:var(--muted);margin-left:18px}.top-actions{display:flex;gap:8px;font-size:15px}.intro{padding:20px 0 14px}h1{font-size:clamp(30px,2.65vw,48px);line-height:1.1;letter-spacing:-.025em;margin:0 0 12px;font-weight:650}.definition{font-size:clamp(19px,1.55vw,28px);line-height:1.45;max-width:1500px;margin:0}.definition strong{font-weight:650;color:var(--blue)}.purpose{font-size:clamp(15px,1.16vw,20px);color:var(--muted);margin:8px 0 0;line-height:1.4}.examples{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:0 0 16px;border-bottom:1px solid var(--line)}.examples>span{font-size:15px;color:var(--muted);margin-right:8px}.examples button{font-size:16px;font-weight:500;min-height:42px}.workspace{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(330px,1fr);gap:3vw;align-items:center;flex:1;min-height:400px;padding:12px 0}.flow{margin:0;min-width:0}.flow svg{width:100%;height:auto;max-height:49vh;display:block;overflow:visible}.flow text{font-family:inherit;fill:var(--ink)}.node rect{fill:var(--paper);stroke:var(--line);stroke-width:1.8;transition:fill .25s,stroke .25s}.node.active rect{fill:var(--tint);stroke:var(--blue);stroke-width:2.2}.node-title{font-size:26px;font-weight:600}.node-value{font-size:21px;fill:var(--muted)!important}.edge{fill:none;stroke:#7c8da5;stroke-width:2.5}.edge.active{stroke:var(--blue);stroke-width:3.3}.flow .reference{fill:var(--orange)}.flow-caption{display:flex;align-items:flex-start;gap:14px;margin-top:6px;min-height:58px;font-size:clamp(17px,1.45vw,25px);line-height:1.4}.phase-mark{width:9px;height:9px;border-radius:50%;background:var(--blue);margin-top:10px;flex-shrink:0}.flow-caption strong{font-weight:650;color:var(--blue)}.example{border-left:1px solid var(--line);padding-left:2.4vw;min-width:0}.example-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}.example-heading h2{font-size:clamp(23px,1.9vw,34px);font-weight:650;line-height:1.15;margin:0}.live-label{font-size:13px;color:var(--teal);white-space:nowrap}.readings{display:grid;grid-template-columns:1fr 1fr;gap:12px}.reading-label{display:block;font-size:14px;color:var(--muted);margin-bottom:1px}.value{font-size:clamp(32px,3.45vw,62px);font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.045em;line-height:1.15}.value small{font-size:.35em;letter-spacing:0;margin-left:5px}.target .value{color:var(--orange)}.actual .value{color:var(--blue)}.meter{height:9px;background:#dce4f0;position:relative;border-radius:3px;margin:13px 0 9px}.meter-fill{height:100%;width:30%;background:var(--blue);border-radius:3px}.target-tick{position:absolute;top:-5px;height:19px;width:2px;background:var(--orange)}.meter-foot{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:14px;margin-bottom:16px}.error{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}.explanations{display:grid;gap:11px}.explanation{padding-left:12px;border-left:3px solid var(--line)}.explanation.current{border-left-color:var(--blue)}.explanation strong{display:block;font-size:clamp(17px,1.33vw,23px);font-weight:650}.explanation p{font-size:clamp(16px,1.23vw,21px);line-height:1.35;color:var(--muted);margin:3px 0 0}.example-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px}.example-bottom button{font-size:14px;min-height:40px;padding:8px 12px}.model-note{font-size:13px;line-height:1.35;color:var(--muted);max-width:240px;margin:0}.generic .value{font-size:42px}.generic .meter,.generic .meter-foot{display:none}.generic .readings{margin-bottom:24px}.generic .reading-label{font-size:15px}.generic .value{letter-spacing:0}.footer{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:10px 0 13px;border-top:1px solid var(--line);font-size:13px;line-height:1.35;color:var(--muted)}.footer a{color:inherit;text-decoration:none}.footer a:hover{text-decoration:underline}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(min-width:1600px){.board{padding-left:3.5vw;padding-right:3.5vw}.topbar{padding:20px 0}.intro{padding:26px 0 20px}.examples{padding-bottom:20px}.workspace{min-height:570px;padding:24px 0}.flow svg{max-height:53vh}.example-heading{margin-bottom:22px}.explanations{gap:18px}.example-bottom{margin-top:22px}.footer{padding:15px 0;font-size:15px}}
-@media(max-width:1100px){.workspace{grid-template-columns:minmax(0,1.5fr) minmax(310px,1fr);gap:20px}.flow .node-title{font-size:28px}.flow .node-value{font-size:23px}.flow-caption{font-size:17px}.example{padding-left:20px}.examples button{font-size:15px}.intro{padding-top:17px}.definition{font-size:19px}.purpose{font-size:15px}}
-@media(max-width:800px){.board{padding:0 4%}.brand{font-size:13px}.brand span{display:none}.top-actions button{font-size:13px;padding:8px 10px}.topbar{padding:12px 0;gap:8px}.intro{padding:20px 0 16px}h1{font-size:31px}.definition{font-size:19px}.purpose{font-size:15px}.examples{gap:7px}.examples>span{display:none}.examples button{font-size:14px;flex:1 1 calc(50% - 8px)}.workspace{grid-template-columns:1fr;gap:20px;padding:20px 0}.flow svg{max-height:none}.flow-caption{min-height:58px;font-size:17px}.example{padding:20px 0 0;border-left:0;border-top:1px solid var(--line)}.example-heading h2{font-size:25px}.value{font-size:48px}.readings{gap:28px}.explanation strong{font-size:19px}.explanation p{font-size:18px}.explanations{gap:16px}.footer{align-items:flex-start;font-size:12px}.footer .shortcuts{display:none}.model-note{font-size:13px}.example-bottom{margin-top:20px}.flow .node-title{font-size:30px}.flow .node-value{font-size:25px}.node .optional{display:none}}
-@media(min-width:801px){.board{height:100svh}.topbar,.intro,.examples,.footer{flex-shrink:0}.workspace{min-height:0;grid-template-rows:minmax(0,1fr);padding-top:8px;padding-bottom:8px}.flow{display:flex;flex-direction:column;min-height:0;height:100%;justify-content:center}.flow svg{flex:1 1 0;min-height:0;height:0;max-height:none}.flow-caption{min-height:46px;flex:0 0 auto}}
-@media(min-width:801px) and (max-width:1100px){.live-label{display:none}.explanations{gap:9px}.example-bottom{margin-top:12px}}
-[hidden]{display:none!important}
-.topic-nav{display:flex;align-items:center;gap:7px;margin-left:auto}.topic-nav button{font-size:14px;font-weight:500}.closed-workspace{flex:1;min-height:0;display:flex;flex-direction:column;padding:12px 0}.closed-diagram{flex:1;min-height:0;margin:0;display:flex;align-items:center}.closed-diagram svg{display:block;width:100%;height:100%;min-height:0;overflow:visible}.closed-diagram text{font-family:inherit;fill:var(--ink)}.cl-title{font-size:29px;font-weight:600}.cl-sub{font-size:23px;fill:var(--muted)!important}.cl-signal-label{font-size:25px}.cl-box{fill:var(--paper);stroke:var(--line);stroke-width:2}.cl-node.active .cl-box{fill:var(--tint);stroke:var(--blue)}.cl-frame{fill:none;stroke:#71829b;stroke-width:2;stroke-dasharray:20 9 3 9}.cl-edge{fill:none;stroke:#71829b;stroke-width:2.7}.cl-edge.active{stroke:var(--blue);stroke-width:3.5}.cl-sign{font-size:33px;font-weight:600}.cl-branch{fill:var(--ink)}.cl-detail{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:start;border-top:1px solid var(--line);padding-top:18px;flex-shrink:0;margin-top:10px;min-height:155px}.cl-stage-label{display:flex;gap:12px;align-items:center;margin-bottom:9px}.cl-stage-label h2{margin:0;font-size:clamp(22px,1.9vw,34px);font-weight:650}.cl-phase-number{color:var(--blue);font-size:16px;font-variant-numeric:tabular-nums}.cl-detail p{margin:0;font-size:clamp(18px,1.5vw,25px);line-height:1.38}.cl-calculation{border-left:1px solid var(--line);padding-left:30px}.cl-calculation-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.cl-calculation-header span{color:var(--muted);font-size:15px}.cl-calculation-header button{font-size:14px;min-height:38px;padding:7px 12px}.cl-equation{font-size:clamp(23px,2.15vw,36px);font-variant-numeric:tabular-nums;line-height:1.2;color:var(--blue);white-space:nowrap}.cl-equation sub{font-size:.6em}.cl-calculation .cl-note{font-size:clamp(14px,1.08vw,19px);color:var(--muted);margin-top:9px;line-height:1.35}.closed-mode .intro{padding-bottom:10px}.cl-symbol{font-style:italic}
-@media(min-width:1600px){.cl-detail{min-height:200px;padding-top:25px}.cl-title{font-size:31px}.cl-sub{font-size:24px}.topic-nav button{font-size:16px}}
-@media(min-width:801px) and (max-width:1100px){.topbar{gap:9px}.brand span{display:none}.topic-nav button,.top-actions button{font-size:13px;padding:8px 10px}.cl-detail{min-height:164px;gap:20px}.cl-calculation{padding-left:20px}.cl-equation{font-size:24px}.cl-calculation-header{gap:6px}.cl-calculation-header button{font-size:12px}.cl-title{font-size:30px}.cl-sub{font-size:24px}}
-@media(max-width:800px){.topbar{flex-wrap:wrap}.topic-nav{order:3;width:100%;margin-left:0}.topic-nav button{flex:1}.top-actions{margin-left:auto}.closed-workspace{flex:none;padding:18px 0}.closed-diagram{flex:none}.closed-diagram svg{height:auto;min-height:0}.cl-detail{grid-template-columns:1fr;gap:20px;min-height:0;padding-top:20px;margin-top:20px}.cl-calculation{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.cl-detail p{font-size:19px}.cl-calculation .cl-note{font-size:15px}.cl-equation{font-size:26px}.cl-title{font-size:19px}.cl-sub{font-size:15px}.cl-signal-label{font-size:17px}.cl-sign{font-size:26px}.cl-calculation-header span{font-size:14px}.cl-calculation-header button{font-size:13px}.closed-mode h1{font-size:29px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="Otomatik kontrol ders notları, haftalık sunumlar ve etkileşimli kontrol sistemi örnekleri.">
+  <title>Otomatik Kontrol · Ders Notları</title>
+  <link rel="stylesheet" href="./home.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%232950db'/%3E%3Cpath d='M10 12h20v16H10z' fill='none' stroke='white' stroke-width='3'/%3E%3Ccircle cx='10' cy='20' r='4' fill='%238adcc5'/%3E%3C/svg%3E">
+  <script>
+    // Preserve links shared before index.html became the course home page.
+    function redirectLegacyTopic() {
+      const oldTopics = new Set(['#temel-akis', '#kapali-cevrim', '#sac-levha', '#sivi-seviye', '#analog-firin', '#bozucu-merdiven', '#ders-notlari', '#isaretler']);
+      if (oldTopics.has(location.hash) || location.hash.startsWith('#not-') || location.hash.startsWith('#isaret-')) {
+        const lesson = new URL('./hafta-1.html', location.href);
+        lesson.search = location.search;
+        lesson.hash = location.hash;
+        location.replace(lesson.href);
+      }
+    }
+    window.addEventListener('hashchange', redirectLegacyTopic);
+    redirectLegacyTopic();
+  </script>
 </head>
 <body>
-<main class="board">
-  <header class="topbar"><div class="brand">OTOMATİK KONTROL <span>1. hafta</span></div><nav class="topic-nav" aria-label="Ders konusu"><button type="button" data-topic="temel" aria-pressed="false">Temel akış</button><button type="button" data-topic="kapali" aria-pressed="false">Kapalı çevrim</button><button type="button" data-topic="sac" aria-pressed="false">Sac levha</button><button type="button" data-topic="seviye" aria-pressed="false">Sıvı seviye</button><button type="button" data-topic="analog" aria-pressed="true">Analog fırın</button><button type="button" data-topic="bozucu" aria-pressed="false">Bozucu</button><button type="button" data-topic="notlar" aria-pressed="false">Kavramlar</button><button type="button" data-topic="isaretler" aria-pressed="false">İşaretler</button></nav><div class="top-actions"><button id="pause" type="button" aria-pressed="false">Ⅱ Duraklat</button><button id="fullscreen" type="button">Tam ekran ↗</button></div></header>
-  <section class="intro" aria-labelledby="title"><h1 id="title">Kontrolün temel döngüsü</h1><p class="definition">Kontrol, bir sistemde fiziksel büyüklüğün <strong>istenen referans değeri</strong>, belirlenen performansta takip etmesini sağlayan kurallar olarak tanımlanabilir.</p><p class="purpose">Amaç, sıcaklık, basınç, hız veya seviye gibi bir büyüklüğü istenen değere getirmektir. Performans, hedefe ulaşma süresini, aşımı ve kalan hatayı kapsar.</p></section>
-  <nav class="examples" aria-label="Aynı kontrol döngüsünün örnekleri"><span>Akışta göster:</span><button type="button" data-example="genel" aria-pressed="true">Ders notundaki akış</button><button type="button" data-example="oda" aria-pressed="false">Oda sıcaklığı</button><button type="button" data-example="hiz" aria-pressed="false">Otomobil hızı</button><button type="button" data-example="su" aria-pressed="false">İnsanla su doldurma</button></nav>
-  <section class="workspace" aria-label="Otomatik hareket eden kontrol akışı">
-    <figure class="flow">
-      <svg viewBox="0 0 900 470" role="img" aria-labelledby="flow-title flow-desc">
-        <title id="flow-title">Kontrol sisteminin geri besleme döngüsü</title><desc id="flow-desc">Sistemden ölçmeye, ölçmeden karşılaştırmaya geri besleme vardır. Referans karşılaştırmaya girer. Ardından değerlendirme, kontrol işareti üretimi ve sistem gelir. Hareketli işaret bu yolu otomatik izler.</desc>
-        <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#7c8da5"/></marker><marker id="arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#2950db"/></marker></defs>
-        <path id="edge-reference" class="edge" d="M280 38V63" marker-end="url(#arrow)"/>
-        <path id="edge-compare" class="edge" d="M747 257V97H468" marker-end="url(#arrow)"/>
-        <path id="edge-evaluate" class="edge" d="M280 132V161" marker-end="url(#arrow)"/>
-        <path id="edge-command" class="edge" d="M280 231V263" marker-end="url(#arrow)"/>
-        <path id="edge-system" class="edge" d="M280 346V380" marker-end="url(#arrow)"/>
-        <path id="edge-measure" class="edge" d="M468 415H747V337" marker-end="url(#arrow)"/>
-        <text class="node-title reference" x="280" y="25" text-anchor="middle">Referans <tspan id="reference-value"></tspan></text>
-        <g id="node-compare" class="node"><rect x="92" y="63" width="376" height="69" rx="6"/><text class="node-title" x="280" y="92" text-anchor="middle">Karşılaştırma</text><text id="compare-value" class="node-value" x="280" y="118" text-anchor="middle">Referans ve ölçüm</text></g>
-        <g id="node-evaluate" class="node"><rect x="92" y="161" width="376" height="70" rx="6"/><text class="node-title" x="280" y="190" text-anchor="middle">Değerlendirme</text><text id="evaluate-value" class="node-value" x="280" y="216" text-anchor="middle">Kontrol kuralı</text></g>
-        <g id="node-command" class="node"><rect x="92" y="263" width="376" height="83" rx="6"/><text class="node-title" x="280" y="292" text-anchor="middle">Kontrol işaretinin<tspan x="280" dy="30">üretilmesi</tspan></text></g>
-        <g id="node-system" class="node"><rect x="92" y="380" width="376" height="70" rx="6"/><text class="node-title" x="280" y="409" text-anchor="middle">Sistem</text><text id="system-value" class="node-value" x="280" y="435" text-anchor="middle">Fiziksel büyüklük</text></g>
-        <g id="node-measure" class="node"><rect x="628" y="257" width="238" height="80" rx="6"/><text class="node-title" x="747" y="289" text-anchor="middle">Ölçme</text><text id="measure-value" class="node-value" x="747" y="319" text-anchor="middle">Algılayıcı</text></g>
-        <circle id="signal" r="7" fill="#2950db"/>
-      </svg>
-      <figcaption class="flow-caption"><span class="phase-mark" aria-hidden="true"></span><span><strong id="phase-title">Ölçme</strong><span id="phase-text">: Sistemin mevcut fiziksel büyüklüğü ölçülür.</span></span></figcaption>
-    </figure>
-    <aside class="example generic" id="example" aria-labelledby="example-title">
-      <div class="example-heading"><h2 id="example-title">Üç temel işlem</h2><span class="live-label" id="live-label">Akış çalışıyor</span></div>
-      <div class="readings"><div class="reading target"><span class="reading-label" id="target-label">İstenen değer</span><div class="value" id="target-value">r</div></div><div class="reading actual"><span class="reading-label" id="actual-label">Ölçülen değer</span><div class="value" id="actual-value">y</div></div></div>
-      <div class="meter" aria-hidden="true"><div class="meter-fill" id="meter-fill"></div><span class="target-tick" id="target-tick"></span></div><div class="meter-foot"><span id="scale-label"></span><span class="error" id="error"></span></div>
-      <div class="explanations"><div id="explain-measure" class="explanation"><strong>Ölçme</strong><p id="measure-description">Sistemin mevcut durumu belirlenir.</p></div><div id="explain-evaluate" class="explanation"><strong>Değerlendirme</strong><p id="evaluate-description">Ölçüm referansla karşılaştırılır ve hata değerlendirilir.</p></div><div id="explain-command" class="explanation"><strong>Kontrol işareti</strong><p id="command-description">Sistemi etkileyecek komut üretilir.</p></div></div>
-      <div class="example-bottom"><p class="model-note" id="model-note">Yeni ölçüm, komutun sonucunu kontrolcüye geri taşır.</p><button id="disturbance" type="button" hidden>Pencereyi aç</button></div>
-    </aside>
-  </section>
-  <section class="closed-workspace" id="closed-workspace" aria-label="Kapalı çevrim kontrol blok diyagramı">
-    <figure class="closed-diagram">
-      <svg id="closed-svg" viewBox="0 0 1280 370" role="img" aria-labelledby="cl-title cl-desc">
-        <title id="cl-title">Kapalı çevrim kontrol blok diyagramı</title><desc id="cl-desc">Referans toplama noktasının artı girişine, ölçülen çıkış eksi girişine gelir. Hata değerlendirme bloğuna gider. Kontrol işareti güç kuvvetlendirici K üzerinden sistemi sürer. Çıkış ölçülüp eksi girişe geri beslenir. Kesikli noktalı çerçeve yalnızca karşılaştırma ve değerlendirme kısmını kapsar.</desc>
-        <defs><marker id="cl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#71829b"/></marker><marker id="cl-arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#2950db"/></marker></defs>
-        <rect class="cl-frame" x="185" y="60" width="420" height="184" rx="3"/>
-        <text class="cl-title" x="192" y="37">Değerlendirme ve kontrol</text>
-        <path id="cl-edge-reference" class="cl-edge" d="M40 150H222" marker-end="url(#cl-arrow)"/>
-        <path id="cl-edge-evaluate" class="cl-edge" d="M278 150H359" marker-end="url(#cl-arrow)"/>
-        <path id="cl-edge-amplifier" class="cl-edge" d="M582 150H675" marker-end="url(#cl-arrow)"/>
-        <path id="cl-edge-system" class="cl-edge" d="M884 150H967" marker-end="url(#cl-arrow)"/>
-        <path id="cl-edge-output" class="cl-edge" d="M1136 150H1250" marker-end="url(#cl-arrow)"/>
-        <path id="cl-edge-measure" class="cl-edge" d="M1178 150V313H500" marker-end="url(#cl-arrow)"/>
-        <path id="cl-edge-feedback" class="cl-edge" d="M344 313H250V178" marker-end="url(#cl-arrow)"/>
-        <text class="cl-signal-label" x="46" y="115">Referans</text><text class="cl-sub cl-symbol" x="104" y="186" text-anchor="middle">r(t)</text>
-        <g id="cl-node-compare" class="cl-node"><circle class="cl-box" cx="250" cy="150" r="28"/></g>
-        <text class="cl-sign" x="206" y="131">+</text><text class="cl-sign" x="217" y="198">−</text>
-        <text class="cl-signal-label" x="319" y="115" text-anchor="middle">Hata</text><text class="cl-sub cl-symbol" x="320" y="186" text-anchor="middle">e(t)</text>
-        <g id="cl-node-evaluate" class="cl-node"><rect class="cl-box" x="359" y="108" width="223" height="84"/><text class="cl-title" x="470.5" y="146" text-anchor="middle">Değerlendirme</text><text class="cl-sub" x="470.5" y="176" text-anchor="middle" id="cl-controller-label">Kontrol kuralı</text></g>
-        <text class="cl-sub cl-symbol" x="629" y="126" text-anchor="middle">u(t)</text>
-        <g id="cl-node-amplifier" class="cl-node"><rect class="cl-box" x="675" y="88" width="209" height="124"/><text class="cl-title" x="779.5" y="121" text-anchor="middle">Güç<tspan x="779.5" dy="31">kuvvetlendirici</tspan><tspan x="779.5" dy="42" style="font-size:38px">K</tspan></text></g>
-        <g id="cl-node-system" class="cl-node"><rect class="cl-box" x="967" y="108" width="169" height="84"/><text class="cl-title" x="1051.5" y="147" text-anchor="middle">Sistem</text><text class="cl-sub" x="1051.5" y="177" text-anchor="middle" id="cl-system-label">Fiziksel süreç</text></g>
-        <circle class="cl-branch" cx="1178" cy="150" r="4.5"/><text class="cl-signal-label" x="1202" y="112" text-anchor="middle">Çıkış</text><text class="cl-sub cl-symbol" x="1215" y="185" text-anchor="middle">y(t)</text>
-        <g id="cl-node-measure" class="cl-node"><rect class="cl-box" x="344" y="278" width="156" height="70"/><text class="cl-title" x="422" y="319" text-anchor="middle">Ölçme</text></g>
-        <text class="cl-sub" x="782" y="347" text-anchor="middle">Geri besleme yolu</text><text class="cl-sub cl-symbol" x="280" y="346">y<tspan baseline-shift="sub" font-size="16">m</tspan>(t)</text>
-        <circle id="cl-signal" r="7" fill="#2950db" visibility="hidden"/><circle id="cl-return-signal" r="6" fill="#087974" visibility="hidden"/>
-      </svg>
-    </figure>
-    <div class="cl-detail">
-      <div><div class="cl-stage-label"><span id="cl-phase-number" class="cl-phase-number">01</span><h2 id="cl-phase-title">Referans ve karşılaştırma</h2></div><p id="cl-phase-text">Referans artı girişe, ölçülen çıkış eksi girişe gelir. Aralarındaki fark hata işaretidir.</p></div>
-      <div class="cl-calculation"><div class="cl-calculation-header"><span>Negatif geri besleme</span><button id="cl-example" type="button" aria-pressed="false">Fırın örneğini göster</button></div><div id="cl-equation" class="cl-equation">e(t) = r(t) − y<sub>m</sub>(t)</div><p class="cl-note" id="cl-note">y<sub>m</sub>(t): ölçülen geri besleme. Referans ve ölçüm, karşılaştırmada aynı ölçeğe getirilir.</p></div>
-    </div>
-  </section>
-  <section class="mill-workspace" id="mill-workspace" aria-label="Sac levha kalınlık kontrolü animasyonu" hidden></section>
-  <section class="mill-workspace" id="tank-workspace" aria-label="Sıvı seviye kontrolü animasyonu" hidden></section>
-  <section class="mill-workspace" id="oven-workspace" aria-label="Analog sıcaklık kontrolü animasyonu" hidden></section>
-  <section class="mill-workspace" id="escalator-workspace" aria-label="Bozucu etki ve yürüyen merdiven animasyonu" hidden></section>
-  <section class="signals-workspace" id="signals-workspace" aria-label="İşaretler, sürekli ve ayrık zaman sistemleri" hidden></section>
-  <section class="notes-workspace" id="notes-workspace" aria-label="Kontrol sistemleri kavramları" hidden>
-    <nav class="notes-nav" aria-label="Ders notu başlıkları">
-      <a href="#not-geri-besleme"><span>01</span>Geri besleme</a>
-      <a href="#not-acik-cevrim"><span>02</span>Açık çevrim</a>
-      <a href="#not-acik-tank"><span>03</span>Açık çevrim tank</a>
-      <a href="#not-kapali-cevrim"><span>04</span>Kapalı çevrim</a>
-      <a href="#not-kararlilik"><span>05</span>Kararlılık</a>
-      <a href="#not-zamanla-degismeyen"><span>06</span>Zamanla değişmeyen sistem</a>
-      <a href="#not-lineer-sistemler"><span>07</span>Lineer / lineer olmayan</a>
-      <a href="#not-rlc-ornegi"><span>08</span>RLC devresi örneği</a>
-      <a href="#not-rlc-lineer-olmayan"><span>09</span>Lineer olmayan RLC</a>
-    </nav>
-    <article class="notes-sheet" id="not-geri-besleme" aria-labelledby="not-geri-baslik">
-      <h2 id="not-geri-baslik"><span>01</span>Geri besleme</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Tanım · ileri yol ve geri besleme elemanları</span><a href="assets/geri-besleme-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/geri-besleme-notu.png" width="1517" height="652" alt="Geri besleme, sistem çıkışının girişe toplam veya fark olarak etkimesidir. Şema, ileri yol elemanlarını ve çıkıştan karşılaştırma noktasına dönen geri besleme elemanlarını gösterir. Sac kalınlığının, sıvı seviyesinin ve fırın sıcaklığının ölçülüp kontrolcüye iletilmesi geri besleme örnekleridir."></figure>
-    </article>
-    <article class="notes-sheet" id="not-acik-cevrim" aria-labelledby="not-acik-baslik">
-      <h2 id="not-acik-baslik"><span>02</span>Açık çevrim kontrol</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Tanım · açık çevrim blok diyagramı</span><a href="assets/acik-cevrim-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/acik-cevrim-notu.png" width="786" height="224" alt="Açık çevrimde çıkış büyüklüğü kontrol işlemine etki etmez ve giriş referansıyla karşılaştırılmaz. Blok diyagramı giriş, kontrolör, bozucu etkiye maruz kalan sistem ve çıkıştan oluşur; geri dönüş yolu yoktur."></figure>
-    </article>
-    <article class="notes-sheet" id="not-acik-tank" aria-labelledby="not-tank-baslik">
-      <h2 id="not-tank-baslik"><span>03</span>Açık çevrim sıvı tankı seviye kontrolü</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Örnek · iki açık çevrim tank düzeneği</span><a href="assets/acik-cevrim-tank-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/acik-cevrim-tank-notu.png" width="833" height="261" alt="Açık çevrim sıvı tankı seviye kontrolünün iki düzeneği. Bilgisayar, DAC ve güç kuvvetlendirici üzerinden giriş valfini sürer. Sağdaki düzenekte ölçülen seviye ayrıca gösterilir; ölçüm bilgisayarın kontrol hesabına geri dönmez."></figure>
-    </article>
-    <article class="notes-sheet" id="not-kapali-cevrim" aria-labelledby="not-kapali-baslik">
-      <h2 id="not-kapali-baslik"><span>04</span>Kapalı çevrim kontrol</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Tanım · blok diyagramı ve sıvı seviye örneği</span><a href="assets/kapali-cevrim-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/kapali-cevrim-notu.png" width="870" height="652" alt="Kapalı çevrimde sistem çıkışı ölçme bloğu üzerinden kontrolöre geri döner ve kontrol işlemine etki eder. Sıvı seviye örneğinde ölçülen su seviyesi referansla karşılaştırılır; hata işaretine göre valf komutu üretilir."></figure>
-    </article>
-    <article class="notes-sheet" id="not-kararlilik" aria-labelledby="not-kararlilik-baslik">
-      <h2 id="not-kararlilik-baslik"><span>05</span>Giriş–çıkış açısından kararlılık</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Sınırlı giriş · sınırlı ve sınırsız çıkış örnekleri</span><a href="assets/kararlilik-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/kararlilik-notu.png" width="866" height="606" alt="Giriş ve çıkışın sınırlılığı üzerinden kararlılık açıklaması. Birim giriş için ilk örneğin çıkışı 5 değerine yaklaşır; ikinci örneğin çıkışı zamanla sınırsız büyür. Grafikler kararlı ve kararsız davranışları karşılaştırır."></figure>
-    </article>
-    <article class="notes-sheet" id="not-zamanla-degismeyen" aria-labelledby="not-zaman-baslik">
-      <h2 id="not-zaman-baslik"><span>06</span>Zamanla değişmeyen kontrol sistemi</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Sabit parametre kabulü · alan kontrollü DC makine</span><a href="assets/zamanla-degismeyen-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/zamanla-degismeyen-notu.png" width="802" height="360" alt="Zamanla değişmeyen kontrol sistemi, parametreleri sabit kabul edilen sistem olarak açıklanır. Alan kontrollü DC makine şemasında R a ve R f dirençleri, L f endüktansı, J atalet momenti ve B viskoz sürtünme katsayısı gösterilir."></figure>
-    </article>
-    <article class="notes-sheet notes-comparison" id="not-lineer-sistemler" aria-labelledby="not-lineer-baslik">
-      <h2 id="not-lineer-baslik"><span>07</span>Lineer ve lineer olmayan kontrol sistemleri</h2>
-      <div class="notes-comparison-grid">
-        <figure class="lesson-source-figure"><figcaption><span>Lineer kontrol sistemi · s. 7–8</span><a href="assets/lineer-kontrol-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/lineer-kontrol-notu.png" width="819" height="810" alt="Ders notundaki lineer kontrol sistemi tanımı: süperpozisyon, çarpımsallık ve toplamsallık ilkeleri; n. dereceden doğrusal diferansiyel denklem. Durum uzayı biçimleri, sabit A ve B matrisleriyle zamanla değişmeyen, A(t) ve B(t) matrisleriyle zamanla değişen lineer sistemleri gösterir."></figure>
-        <figure class="lesson-source-figure"><figcaption><span>Lineer olmayan kontrol sistemi · s. 8</span><a href="assets/lineer-olmayan-kontrol-notu.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/lineer-olmayan-kontrol-notu.png" width="848" height="610" alt="Ders notundaki lineer olmayan kontrol sistemi tanımı: durum değişkenlerine bağlı parametreler, doğrusal olmayan diferansiyel denklem ve durum uzayı modelleri. Genel model x nokta eşittir f(x,u,t), başlangıç durumu x(0) eşittir x sıfır; çıkış denklemi y eşittir Cx veya h(x,u,t) olarak gösterilir."></figure>
-      </div>
-    </article>
-    <article class="notes-sheet notes-long" id="not-rlc-ornegi" aria-labelledby="not-rlc-baslik">
-      <h2 id="not-rlc-baslik"><span>08</span>Örnek 1 · Lineer RLC devresi</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Devre, diferansiyel denklem ve durum uzay modeli · s. 8–9</span><a href="assets/rlc-lineer-ornek.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/rlc-lineer-ornek.png" width="482" height="918" alt="Ders notundaki Örnek 1 ve tam çözümü: R, L ve C değerleri sabit seri RLC devresi. Çevre denklemi ve kondansatör akım-gerilim ilişkisinden ikinci dereceden doğrusal diferansiyel denklem elde edilir. Durum değişkenleri x1 eşittir Vc ve x2 eşittir dVc/dt seçilerek iki durum denklemi ve vektör-matris modeli yazılır."></figure>
-      <p class="notes-source-link"><a href="./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf#page=8" target="_blank" rel="noopener">Örneği kaynak PDF’de aç · s. 8–9 ↗</a></p>
-    </article>
-    <article class="notes-sheet notes-long" id="not-rlc-lineer-olmayan" aria-labelledby="not-rlc-lineer-olmayan-baslik">
-      <h2 id="not-rlc-lineer-olmayan-baslik"><span>09</span>Örnek 2 · Lineer olmayan RLC devresi</h2>
-      <figure class="lesson-source-figure"><figcaption><span>Varaktör, gerilime bağlı kapasite ve durum uzay modeli · s. 10–11</span><a href="assets/rlc-lineer-olmayan-ornek.png" target="_blank" rel="noopener">Görseli büyüt ↗</a></figcaption><img src="assets/rlc-lineer-olmayan-ornek.png" width="501" height="1116" alt="Ders notundaki Örnek 2 ve tam çözümü: R ve L sabit, kapasitesi kondansatör uç gerilimine bağlı olan RLC devresi ve varaktörün kapasite-gerilim grafiği. Kaynakta kapasite C eşittir kc bölü Vc olarak verilir. Lineer olmayan diferansiyel denklem, x1 eşittir Vc ve x2 eşittir dVc/dt durum değişkenleriyle durum denklemleri ve f(x) ile g(x) vektörleri gösterilir."></figure>
-      <p class="notes-source-link"><a href="./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf#page=10" target="_blank" rel="noopener">Örneği kaynak PDF’de aç · s. 10–11 ↗</a></p>
-    </article>
-  </section>
-  <footer class="footer"><a id="lesson-source" href="./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf#page=1" target="_blank" rel="noopener">Ders notu: Prof. Dr. Ayhan Özdemir, 1. hafta, s. 1</a><span id="mill-model-note" hidden>Öğretim modeli · değerler ve hareketler temsilidir.</span><span class="shortcuts">Boşluk: duraklat / sürdür &nbsp; F: tam ekran</span></footer>
-</main>
-<div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
-<script src="rolling-mill.js"></script>
-<script src="liquid-tank.js"></script>
-<script src="analog-oven.js"></script>
-<script src="escalator.js"></script>
-<script src="signals.js"></script>
-<script>
-(() => {
-  'use strict';
-  const $ = id => document.getElementById(id);
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const duration = 2300;
-  const phases = ['measure','compare','evaluate','command','system'];
-  const names = ['Ölçme','Karşılaştırma','Değerlendirme','Kontrol işaretinin üretilmesi','Sistem'];
-  const generalText = ['Sistemin mevcut fiziksel büyüklüğü ölçülür.','Ölçülen değer, istenen referansla karşılaştırılır.','Hata, belirlenen kontrol kuralına göre değerlendirilir.','Sistemi etkileyecek kontrol komutu üretilir.','Komut sistemi etkiler. Değişen sonuç yeniden ölçülür.'];
-  const configurations = {
-    genel:{title:'Üç temel işlem',target:1,start:0,min:0,max:1,unit:'',precision:1},
-    oda:{title:'Oda sıcaklığı',target:22,start:19,min:16,max:25,unit:'°C',precision:1,sensor:'Sıcaklık sensörü',button:'Pencereyi aç',note:'Değerler, kontrol mantığını göstermek için temsilidir.'},
-    hiz:{title:'Otomobil hızı',target:90,start:75,min:0,max:120,unit:'km/sa',precision:0,sensor:'Hız sensörü',button:'Yokuşa gir',note:'Yokuş hızı düşürür. Geri besleme yeni komutu belirler.'},
-    su:{title:'İnsanla su doldurma',target:75,start:20,min:0,max:100,unit:'%',precision:0,sensor:'Gözle seviye algısı',button:'Bardağı boşalt',note:'Göz ölçer, insan değerlendirir, el akışı ayarlar. Seviye ölçeği temsilidir.'}
-  };
-  let selected='genel', config=configurations.genel, phase=0, elapsed=0, paused=false, currentTopic='kapali';
-  let actual=0, measured=0, error=1, from=0, destination=0, frameId=null, lastTime=null;
-  let planned='',command='',transitionCount=0;
-  const edges=Object.fromEntries(phases.map(key=>[key,$('edge-'+key)]));
-  const lengths=Object.fromEntries(phases.map(key=>[key,edges[key].getTotalLength()]));
-  const format=(value,precision=config.precision)=>Number(value).toLocaleString('tr-TR',{minimumFractionDigits:0,maximumFractionDigits:precision});
-  const withUnit=value=>`${format(value)} ${config.unit}`.trim();
-  const closeEnough=()=>Math.abs(error)<(selected==='hiz'?1:selected==='su'?1:0.12);
-  function chooseAction(){
-    if(selected==='genel')return 'Kontrol kuralı uygulanır';
-    if(selected==='oda')return closeEnough()?'Sıcaklığı koru':error>0?'Isıtmayı artır':'Isıtmayı azalt';
-    if(selected==='hiz')return closeEnough()?'Hızı koru':error>0?'Tahrik torkunu artır':'Tahrik torkunu azalt';
-    return closeEnough()?'Su akışını durdur':error>10?'Sürahiyi eğ, suyu dök':error>0?'Akışı azalt':'Su akışını durdur';
-  }
-  function descriptiveText(){
-    if(selected==='genel')return generalText[phase];
-    if(phase===0)return selected==='su'?`Gözün su seviyesini ${format(measured)} / 100 olarak algılar.`:`${config.sensor}, ${withUnit(measured)} değerini ölçer.`;
-    if(phase===1)return closeEnough()?'Ölçüm referansa ulaştı. Fark çok küçük veya sıfır.':selected==='su'?`Seviye, hedef çizgisinin ${format(error)} birim altında.`:`Referans ile ölçüm arasındaki fark ${withUnit(error)}.`;
-    if(phase===2)return selected==='su'?'Gördüğün seviyeye göre dökmeye devam edip etmeyeceğine karar verirsin.':`Kontrolcü farkı değerlendirir: ${planned.toLocaleLowerCase('tr-TR')}.`;
-    if(phase===3)return selected==='su'?`Elinle komutu uygularsın: ${command.toLocaleLowerCase('tr-TR')}.`:`Komut sisteme gönderilir: ${command.toLocaleLowerCase('tr-TR')}.`;
-    return selected==='su'?'Su seviyesi değişir. Gözün yeni seviyeyi tekrar izler.':'Komut fiziksel büyüklüğü değiştirir. Sonuç tekrar ölçülür.';
-  }
-  function updateReadings(){
-    if(selected==='genel')return;
-    $('actual-value').innerHTML=`${format(actual)}<small>${config.unit}</small>`;
-    $('system-value').textContent=selected==='oda'?`Oda · ${withUnit(actual)}`:selected==='hiz'?`Araç · ${withUnit(actual)}`:`Su seviyesi · ${format(actual)} / 100`;
-    $('meter-fill').style.width=`${Math.max(0,Math.min(100,(actual-config.min)/(config.max-config.min)*100))}%`;
-  }
-  function updateText(){
-    const generic=selected==='genel';
-    $('reference-value').textContent=generic?'':selected==='su'?'· dolum çizgisi':`· ${withUnit(config.target)}`;
-    $('compare-value').textContent=generic?'Referans ve ölçüm':selected==='su'?`Fark: ${format(error)} birim`:`Hata: ${withUnit(error)}`;
-    $('evaluate-value').textContent=generic?'Kontrol kuralı':planned;
-    $('measure-value').textContent=generic?'Algılayıcı':withUnit(measured);
-    $('measure-description').textContent=generic?'Sistemin mevcut durumu belirlenir.':`${config.sensor}: ${withUnit(measured)}.`;
-    $('evaluate-description').textContent=generic?'Ölçüm referansla karşılaştırılır ve hata değerlendirilir.':`${selected==='su'?'İnsanın kararı':'Kontrolcü'}: ${planned.toLocaleLowerCase('tr-TR')}.`;
-    $('command-description').textContent=generic?'Sistemi etkileyecek komut üretilir.':`${command}.`;
-    $('error').textContent=selected==='su'?`Fark: ${format(error)} birim`:`Hata: ${withUnit(error)}`;
-    $('phase-title').textContent=names[phase];
-    $('phase-text').textContent=`: ${descriptiveText()}`;
-    for(const [key,edge] of Object.entries(edges)){
-      const active=key===phases[phase];edge.classList.toggle('active',active);edge.setAttribute('marker-end',`url(#${active?'arrow-active':'arrow'})`);
-      $('node-'+key).classList.toggle('active',active);
-    }
-    $('edge-reference').classList.toggle('active',phase===1);
-    $('edge-reference').setAttribute('marker-end',`url(#${phase===1?'arrow-active':'arrow'})`);
-    for(const name of ['measure','evaluate','command'])$('explain-'+name).classList.toggle('current',name===(phase===0?'measure':phase<3?'evaluate':phase===3?'command':''));
-    document.documentElement.dataset.phase=phases[phase];
-    document.documentElement.dataset.transitions=String(transitionCount);
-    updateReadings();
-  }
-  function enterPhase(next){
-    phase=next;elapsed=0;transitionCount++;
-    if(phase===0){measured=actual;error=config.target-measured;}
-    if(phase===1)error=config.target-measured;
-    if(phase===2)planned=chooseAction();
-    if(phase===3)command=planned;
-    if(phase===4){
-      from=actual;
-      destination=selected==='genel'?Math.min(1,actual+.1):closeEnough()?config.target:actual+error*.64;
-      if(Math.abs(config.target-destination)<(selected==='hiz'?1:selected==='su'?1:0.12))destination=config.target;
-      destination=Math.max(config.min,Math.min(config.max,destination));
-    }
-    updateText();
-  }
-  function tick(time){
-    if(lastTime===null)lastTime=time;
-    const dt=Math.min(120,time-lastTime);lastTime=time;
-    if(!paused&&!document.hidden&&currentTopic==='temel'){
-      elapsed+=dt;
-      if(elapsed>=duration){if(phase===4)actual=destination;enterPhase((phase+1)%phases.length);}
-      const progress=Math.min(1,elapsed/duration);
-      if(phase===4){actual=from+(destination-from)*(1-Math.pow(1-progress,3));updateReadings();}
-      const key=phases[phase],point=edges[key].getPointAtLength(lengths[key]*Math.min(1,progress*1.5));
-      $('signal').setAttribute('cx',point.x);$('signal').setAttribute('cy',point.y);
-      $('signal').setAttribute('visibility',reduced.matches?'hidden':'visible');
-    }
-    if(!paused&&!document.hidden&&currentTopic==='kapali')tickClosed(dt);
-    if(!paused&&!document.hidden&&currentTopic==='sac')rolling.tick(dt);
-    if(!paused&&!document.hidden&&currentTopic==='seviye')tank.tick(dt);
-    if(!paused&&!document.hidden&&currentTopic==='analog')oven.tick(dt);
-    if(!paused&&!document.hidden&&currentTopic==='bozucu')escalator.tick(dt);
-    frameId=requestAnimationFrame(tick);
-  }
-  function selectExample(key){
-    selected=key;config=configurations[key];actual=config.start;measured=actual;error=config.target-actual;from=actual;destination=actual;
-    planned=chooseAction();command=selected==='genel'?'Kontrol işareti':'Komut henüz üretilmedi';transitionCount=0;
-    $('example').classList.toggle('generic',key==='genel');$('example-title').textContent=config.title;
-    $('target-label').textContent=key==='su'?'Hedef çizgisi':key==='genel'?'İstenen değer':'Referans';
-    $('actual-label').textContent=key==='genel'?'Ölçülen değer':key==='su'?'Su seviyesi':'Gerçek değer';
-    $('target-value').innerHTML=key==='genel'?'r':`${format(config.target)}<small>${config.unit}</small>`;
-    if(key==='genel'){$('actual-value').textContent='y';$('system-value').textContent='Fiziksel büyüklük';}
-    $('target-tick').style.left=`${(config.target-config.min)/(config.max-config.min)*100}%`;
-    $('scale-label').textContent=`${config.min}–${config.max} ${config.unit}`;
-    $('model-note').textContent=config.note||'Yeni ölçüm, komutun sonucunu kontrolcüye geri taşır.';
-    $('disturbance').hidden=key==='genel';$('disturbance').textContent=config.button||'';
-    document.querySelectorAll('button[data-example]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.example===key)));
-    enterPhase(0);lastTime=null;
-    document.documentElement.dataset.example=key;
-    $('announcement').textContent=`${config.title} seçildi. Akış ${paused?'duraklatıldı':'otomatik ilerliyor'}.`;
-  }
-  function togglePause(){
-    paused=!paused;$('pause').textContent=paused?'▶ Sürdür':'Ⅱ Duraklat';$('pause').setAttribute('aria-pressed',String(paused));
-    $('live-label').textContent=paused?'Akış duraklatıldı':'Akış çalışıyor';lastTime=null;
-  }
-  async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{$('announcement').textContent='Tam ekran için tarayıcıda F11 tuşunu kullanabilirsiniz.';}}
-  document.querySelectorAll('button[data-example]').forEach(button=>button.addEventListener('click',()=>selectExample(button.dataset.example)));
-  $('pause').addEventListener('click',togglePause);$('fullscreen').addEventListener('click',fullscreen);
-  $('disturbance').addEventListener('click',()=>{
-    actual=selected==='su'?20:Math.max(config.min,actual-(selected==='oda'?3:15));measured=actual;error=config.target-actual;planned=chooseAction();enterPhase(0);lastTime=null;
-    $('announcement').textContent=selected==='oda'?'Pencere açıldı, oda soğudu.':selected==='hiz'?'Araç yokuşta yavaşladı.':'Bardak boşaltıldı.';
-  });
-  document.addEventListener('keydown',event=>{
-    if(event.ctrlKey||event.metaKey||event.altKey||/INPUT|SELECT|TEXTAREA/.test(event.target.tagName))return;
-    if(event.key===' '&&currentTopic!=='notlar'&&currentTopic!=='isaretler'&&!/BUTTON|A/.test(event.target.tagName)){event.preventDefault();togglePause();}
-    else if(event.key.toLowerCase()==='f'){event.preventDefault();fullscreen();}
-  });
-  document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Tam ekrandan çık ↙':'Tam ekran ↗';});
-  document.addEventListener('visibilitychange',()=>{lastTime=null;});
-  addEventListener('pagehide',()=>cancelAnimationFrame(frameId));
-  addEventListener('pageshow',event=>{if(event.persisted){lastTime=null;frameId=requestAnimationFrame(tick);}});
-  const originalIntro={title:$('title').textContent,definition:document.querySelector('.definition').innerHTML,purpose:document.querySelector('.purpose').textContent};
-  const closed={phase:0,elapsed:0,changes:0,example:false,actual:140,measured:140,start:140,end:140};
-  const closedKeys=['reference','evaluate','amplifier','system','measure','feedback'];
-  const closedTitles=['Referans ve karşılaştırma','Değerlendirme','Güç kuvvetlendirici K','Kontrol edilen sistem','Çıkışın ölçülmesi','Negatif geri besleme'];
-  const closedCopy=[
-    'Referans artı girişe, ölçülen çıkış eksi girişe gelir. Aralarındaki fark hata işaretidir.',
-    'Kontrolcü hatayı kontrol kuralına göre işler ve u(t) kontrol komutunu üretir.',
-    'K, kontrol komutunu fiziksel sistemi sürebilecek güç düzeyine taşır.',
-    'Güç işareti sisteme uygulanır. Sistemin fiziksel çıkışı y(t) değişir.',
-    'Çıkış, ölçme elemanına ulaşır. Ölçme sistemi geri besleme işaretini üretir.',
-    'Ölçülen işaret eksi girişe geri döner. Yeni karşılaştırma, kontrol komutunu günceller.'
-  ];
-  const closedEdges=Object.fromEntries(closedKeys.map(key=>[key,$('cl-edge-'+key)]));
-  function closedEquation(){
-    if(closed.example){
-      const measured=Math.round(closed.measured),difference=180-measured;
-      $('cl-equation').textContent=`180 − ${measured} = ${difference} °C`;
-      $('cl-note').textContent=`Referans: 180 °C. Ölçüm: ${measured} °C. Temsili sıcaklık değerleri aynı ölçekle karşılaştırılıyor.`;
-    }else{
-      $('cl-equation').innerHTML='e(t) = r(t) − y<sub>m</sub>(t)';
-      $('cl-note').innerHTML='y<sub>m</sub>(t): ölçülen geri besleme. Referans ve ölçüm, karşılaştırmada aynı ölçeğe getirilir.';
-    }
-    $('cl-system-label').textContent=closed.example?`Fırın · ${Math.round(closed.actual)} °C`:'Fiziksel süreç';
-    $('cl-controller-label').textContent=closed.example?(180-closed.measured<1?'Sıcaklığı koru':'Isıtma komutu'):'Kontrol kuralı';
-  }
-  function closedUpdate(){
-    const p=closed.phase;
-    $('cl-phase-number').textContent=String(p+1).padStart(2,'0');
-    $('cl-phase-title').textContent=closedTitles[p];
-    $('cl-phase-text').textContent=closed.example?[
-      `180 °C referans, ${Math.round(closed.measured)} °C ölçümle karşılaştırılır. Hata ${180-Math.round(closed.measured)} °C’dir.`,
-      'Sıcaklık kontrolcüsü, hataya göre ısıtıcıya verilecek kontrol komutunu belirler.',
-      'Güç devresi, kontrolcünün komutuyla fırının ısıtıcısına enerji aktarır.',
-      'Isıtıcı fırını etkiler. Sıcaklık zaman içinde referansa yaklaşır.',
-      'Sıcaklık sensörü ve işaret düzenleyici devre, yeni sıcaklığın ölçümünü sağlar.',
-      'Ölçülen sıcaklık eksi girişe döner. Kontrolcü yeni hataya göre komut üretir.'
-    ][p]:closedCopy[p];
-    document.querySelectorAll('.cl-node').forEach(node=>node.classList.remove('active'));
-    const node=['compare','evaluate','amplifier','system','measure','compare'][p];
-    $('cl-node-'+node).classList.add('active');
-    document.querySelectorAll('.cl-edge').forEach(edge=>{const on=edge.id==='cl-edge-'+closedKeys[p]||(p===0&&edge.id==='cl-edge-feedback')||(p===4&&edge.id==='cl-edge-output');edge.classList.toggle('active',on);edge.setAttribute('marker-end',`url(#${on?'cl-arrow-active':'cl-arrow'})`);});
-    document.documentElement.dataset.closedPhase=closedKeys[p];
-    document.documentElement.dataset.closedChanges=String(closed.changes);
-    closedEquation();
-  }
-  function closedEnter(next){
-    closed.phase=next;closed.elapsed=0;closed.changes++;
-    if(next===3){closed.start=closed.actual;closed.end=180-closed.actual<1?180:closed.actual+(180-closed.actual)*.55;}
-    if(next===4)closed.measured=closed.actual;
-    closedUpdate();
-  }
-  function positionDot(dot,path,progress){const point=path.getPointAtLength(path.getTotalLength()*progress);dot.setAttribute('cx',point.x);dot.setAttribute('cy',point.y);}
-  function drawClosedSignal(){
-    const progress=Math.min(1,closed.elapsed/duration*1.35);
-    const signal=$('cl-signal'),returned=$('cl-return-signal');
-    signal.setAttribute('visibility',reduced.matches?'hidden':'visible');
-    positionDot(signal,closedEdges[closedKeys[closed.phase]],progress);
-    returned.setAttribute('visibility',closed.phase===0&&!reduced.matches?'visible':'hidden');
-    if(closed.phase===0)positionDot(returned,closedEdges.feedback,progress);
-  }
-  function tickClosed(dt){
-    closed.elapsed+=dt;
-    if(closed.elapsed>=duration){if(closed.phase===3)closed.actual=closed.end;closedEnter((closed.phase+1)%6);}
-    const progress=Math.min(1,closed.elapsed/duration);
-    if(closed.phase===3&&closed.example){closed.actual=closed.start+(closed.end-closed.start)*(1-Math.pow(1-progress,3));closedEquation();}
-    drawClosedSignal();
-  }
-  function activateTopic(topic){
-    currentTopic=topic;lastTime=null;
-    const isClosed=topic==='kapali',isMill=topic==='sac',isTank=topic==='seviye',isOven=topic==='analog',isNotes=topic==='notlar',isEscalator=topic==='bozucu',isSignals=topic==='isaretler';
-    document.querySelector('.board').classList.toggle('closed-mode',isClosed);
-    document.querySelector('.board').classList.toggle('mill-mode',isMill||isTank||isOven||isEscalator);
-    document.querySelector('.board').classList.toggle('notes-mode',isNotes);
-    document.querySelector('.board').classList.toggle('signals-mode',isSignals);
-    document.querySelector('.workspace').hidden=isClosed||isMill||isTank||isOven||isNotes||isEscalator||isSignals;
-    document.querySelector('.examples').hidden=isClosed||isMill||isTank||isOven||isNotes||isEscalator||isSignals;
-    $('closed-workspace').hidden=!isClosed;
-    $('mill-workspace').hidden=!isMill;
-    $('tank-workspace').hidden=!isTank;
-    $('oven-workspace').hidden=!isOven;
-    $('notes-workspace').hidden=!isNotes;
-    $('escalator-workspace').hidden=!isEscalator;
-    $('signals-workspace').hidden=!isSignals;
-    $('pause').hidden=isNotes||isSignals;
-    document.querySelector('.shortcuts').textContent=isNotes||isSignals?'F: tam ekran':'Boşluk: duraklat / sürdür   F: tam ekran';
-    $('mill-model-note').hidden=!(isMill||isTank||isOven||isEscalator);
-    $('title').textContent=isOven?'Analog sıcaklık kontrolü':isTank?'Sıvı seviye kontrolü':isMill?'Sac levha kalınlık kontrolü':isClosed?'Kapalı çevrim kontrol blok diyagramı':originalIntro.title;
-    document.querySelector('.definition').innerHTML=isOven?'Hedef sıcaklığı değiştir, fırının kapağını aç. <strong>Op-amp’lı kontrolcünün</strong> ısıtıcı gücünü nasıl ayarladığını izle.':isTank?'Çıkış vanasını aç, hedef seviyeyi değiştir. Kontrolcünün <strong>giriş valfini nasıl ayarladığını</strong> izle.':isMill?'Hedefi değiştir, hatta daha kalın sac gönder. Kontrolcünün <strong>merdane aralığını nasıl ayarladığını</strong> izle.':isClosed?'Sistem çıkışı ölçülür ve referansla karşılaştırılır. Kontrolcü, <strong>hata işaretine göre</strong> sisteme uygulanacak komutu belirler.':originalIntro.definition;
-    document.querySelector('.purpose').textContent=isOven?'Analog döngüde referans, hata ve kontrol işareti sürekli gerilimlerdir. Gürültü ekleyerek RC filtrenin etkisini karşılaştır.':isClosed?'Kesikli noktalı çerçeve, değerlendirme ve kontrol kısmıdır. Analog veya sayısal işlemci ile gerçekleştirilebilir.':originalIntro.purpose;
-    document.querySelectorAll('button[data-topic]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.topic===topic)));
-    document.title=isOven?'Analog sıcaklık kontrolü · Otomatik Kontrol':isTank?'Sıvı seviye kontrolü · Otomatik Kontrol':isMill?'Sac levha kalınlık kontrolü · Otomatik Kontrol':isClosed?'Kapalı çevrim kontrol · Otomatik Kontrol':'Kontrol döngüsü · Otomatik Kontrol';
-    document.documentElement.dataset.topic=topic;
-    history.replaceState(null,'',isOven?'#analog-firin':isTank?'#sivi-seviye':isMill?'#sac-levha':isClosed?'#kapali-cevrim':'#temel-akis');
-    $('lesson-source').href='./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf#page='+(isOven?4:isTank?3:isMill?2:1);
-    $('lesson-source').textContent='Ders notu: Prof. Dr. Ayhan Özdemir, 1. hafta, s. '+(isOven?4:isTank?3:isMill?2:1);
-    if(isNotes){
-      $('title').textContent='Kontrol sistemlerinde temel kavramlar';
-      document.querySelector('.definition').textContent='Geri besleme, çevrim yapıları, kararlılık, zamanla değişmeyen sistemler ve lineerlik.';
-      document.title='Kontrol sistemlerinde temel kavramlar · Otomatik Kontrol';
-      history.replaceState(null,'','#ders-notlari');
-      $('lesson-source').href='./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf';
-      $('lesson-source').textContent='Ders notu: Prof. Dr. Ayhan Özdemir · 1. hafta';
-      $('announcement').textContent='Dokuz ders notu başlığı aynı sayfada gösteriliyor.';
-    }
-    if(isSignals){
-      $('title').textContent='İşaretler · Sürekli ve ayrık zaman';
-      document.querySelector('.definition').innerHTML='Bir işaretin <strong>hangi anlarda tanımlı olduğu</strong>, şekli kadar önemlidir. Ders notunun 11–13. sayfalarını grafikler ve kontrol şemalarıyla inceleyelim.';
-      document.title='İşaretler · Sürekli ve ayrık zaman · Otomatik Kontrol';
-      history.replaceState(null,'','#isaretler');
-      $('lesson-source').href='./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf#page=11';
-      $('lesson-source').textContent='Ders notu: Prof. Dr. Ayhan Özdemir · 1. hafta, s. 11–13';
-      $('announcement').textContent='İşaretler: beş başlık, tek sayfa. Yaklaşım ve örnekleme sürgüleri kullanılabilir.';
-    }
-    if(isEscalator){
-      $('title').textContent='Bozucu etki · Yürüyen merdiven';
-      document.querySelector('.definition').innerHTML='Bir kişi binsin, yolculuğunu tamamlasın ve insin. Kontrolcü, değişen yüke rağmen <strong>aynı hızı korumaya çalışır.</strong>';
-      document.title='Bozucu etki · Yürüyen merdiven · Otomatik Kontrol';
-      history.replaceState(null,'','#bozucu-merdiven');
-      $('lesson-source').href='./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf';
-      $('lesson-source').textContent='Ders notu: Prof. Dr. Ayhan Özdemir · Bozucu ve geri besleme';
-      escalator.refresh();
-    }
-    if(isClosed)drawClosedLayout();
-    if(isMill)rolling.refresh();
-    if(isTank)tank.refresh();
-    if(isOven)oven.refresh();
-  }
-  function drawClosedLayout(){
-    const svg=$('closed-svg');
-    const mobile=innerWidth<=800;
-    svg.setAttribute('viewBox',mobile?'0 0 560 470':'0 0 1280 370');
-    const set=(id,attrs)=>{const node=$(id);for(const [key,value]of Object.entries(attrs))node.setAttribute(key,value);};
-    if(mobile){
-      /* The same connections fold into two rows on narrow screens. */
-      set('cl-edge-reference',{d:'M12 126H72'});set('cl-edge-evaluate',{d:'M128 126H180'});set('cl-edge-amplifier',{d:'M350 126H386'});set('cl-edge-system',{d:'M535 126H550V250H477'});set('cl-edge-output',{d:'M337 250H285'});set('cl-edge-measure',{d:'M305 250V392H257'});set('cl-edge-feedback',{d:'M127 392H100V154'});
-      $('cl-node-compare').setAttribute('transform','translate(-150,-24)');
-      $('cl-node-evaluate').setAttribute('transform','translate(-94,-24) scale(.765,1)');
-      $('cl-node-amplifier').setAttribute('transform','translate(-96,-24) scale(.714,1)');
-      $('cl-node-system').setAttribute('transform','translate(-464,100) scale(.828,1)');
-      $('cl-node-measure').setAttribute('transform','translate(-160,79) scale(.833,1)');
-      const direct=svg.querySelectorAll(':scope > text');direct.forEach(node=>node.style.display='none');
-      svg.querySelector('.cl-frame').setAttribute('x','54');svg.querySelector('.cl-frame').setAttribute('y','54');svg.querySelector('.cl-frame').setAttribute('width','308');svg.querySelector('.cl-frame').setAttribute('height','163');
-      svg.querySelector('.cl-branch').setAttribute('cx','305');svg.querySelector('.cl-branch').setAttribute('cy','250');
-      if(!$('cl-mobile-labels')){
-        const group=document.createElementNS('http://www.w3.org/2000/svg','g');group.id='cl-mobile-labels';
-        group.innerHTML='<text class="cl-title" x="57" y="31">Değerlendirme ve kontrol</text><text class="cl-signal-label" x="12" y="93">r(t)</text><text class="cl-sign" x="66" y="112">+</text><text class="cl-sign" x="72" y="169">−</text><text class="cl-signal-label" x="151" y="103" text-anchor="middle">Hata</text><text class="cl-signal-label" x="277" y="233">y(t)</text><text class="cl-sub" x="310" y="424" text-anchor="middle">Geri besleme yolu</text><text class="cl-sub" x="112" y="436">yₘ(t)</text>';
-        svg.appendChild(group);
-      }else $('cl-mobile-labels').style.display='';
-    }else{
-      const paths={reference:'M40 150H222',evaluate:'M278 150H359',amplifier:'M582 150H675',system:'M884 150H967',output:'M1136 150H1250',measure:'M1178 150V313H500',feedback:'M344 313H250V178'};
-      Object.entries(paths).forEach(([key,d])=>set('cl-edge-'+key,{d}));
-      svg.querySelectorAll('.cl-node').forEach(node=>node.removeAttribute('transform'));
-      svg.querySelectorAll(':scope > text').forEach(node=>node.style.display='');
-      const bounds=svg.querySelector('.cl-frame');for(const [key,value]of Object.entries({x:185,y:60,width:420,height:184}))bounds.setAttribute(key,value);
-      svg.querySelector('.cl-branch').setAttribute('cx','1178');svg.querySelector('.cl-branch').setAttribute('cy','150');
-      if($('cl-mobile-labels'))$('cl-mobile-labels').style.display='none';
-    }
-    drawClosedSignal();
-  }
-  document.querySelectorAll('button[data-topic]').forEach(button=>button.addEventListener('click',()=>activateTopic(button.dataset.topic)));
-  $('cl-example').addEventListener('click',()=>{closed.example=!closed.example;closed.actual=140;closed.measured=140;closed.start=140;closed.end=140;$('cl-example').setAttribute('aria-pressed',String(closed.example));$('cl-example').textContent=closed.example?'Genel şemaya dön':'Fırın örneğini göster';closedEnter(0);});
-  addEventListener('resize',drawClosedLayout);
-  const rolling=window.createRollingMill($('mill-workspace'));
-  const tank=window.createLiquidTank($('tank-workspace'));
-  const oven=window.createAnalogOven($('oven-workspace'));
-  const escalator=window.createEscalator($('escalator-workspace'));
-  window.createSignalsLesson($('signals-workspace'));
-  const requestedHash=location.hash;
-  selectExample('genel');closedUpdate();activateTopic(requestedHash==='#isaretler'||requestedHash.startsWith('#isaret-')?'isaretler':requestedHash==='#temel-akis'?'temel':requestedHash==='#kapali-cevrim'?'kapali':requestedHash==='#sac-levha'?'sac':requestedHash==='#sivi-seviye'?'seviye':requestedHash==='#ders-notlari'||requestedHash.startsWith('#not-')?'notlar':requestedHash==='#analog-firin'?'analog':'bozucu');
-  if((requestedHash.startsWith('#not-')||requestedHash.startsWith('#isaret-'))&&document.getElementById(requestedHash.slice(1))){history.replaceState(null,'',requestedHash);document.getElementById(requestedHash.slice(1)).scrollIntoView();}
-  frameId=requestAnimationFrame(tick);
-})();
-</script>
+  <a class="skip" href="#haftalar">Ders haftalarına geç</a>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="Otomatik Kontrol ana sayfa">
+        <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 9h17v16H8V9" fill="none" stroke="#b6cbe6" stroke-width="1.8"/><path d="M1 16h9m12 0h9" stroke="white" stroke-width="1.8"/><circle cx="8" cy="16" r="4" fill="#142b46" stroke="#9de3ca" stroke-width="2"/><rect x="13" y="12" width="9" height="8" rx="1.5" fill="#9de3ca"/></svg></span>
+        <span>Otomatik Kontrol<small>DERS NOTLARI</small></span>
+      </a>
+      <nav class="header-nav" aria-label="Ana menü"><a href="#haftalar">Haftalar</a><a href="#kaynaklar">Kaynaklar</a></nav>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="home-title">
+        <div>
+          <p class="eyebrow">Ders notları & etkileşimli anlatım</p>
+          <h1 id="home-title">Otomatik<br><span>Kontrol.</span></h1>
+          <p class="hero-copy">Bir sistemin hedefe nasıl ulaştığını anlamak. Kavramlar, çalışan düzenekler ve işaretlerle adım adım.</p>
+          <div class="hero-features"><span>Görsel anlatım</span><span>Etkileşimli örnekler</span><span>Ders PDF’leri</span></div>
+        </div>
+        <figure class="hero-diagram">
+          <div class="diagram-head"><span>KONTROLÜN TEMEL FİKRİ</span><span>Kapalı çevrim</span></div>
+          <svg viewBox="0 0 500 250" role="img" aria-labelledby="home-loop-title home-loop-desc">
+            <title id="home-loop-title">Kapalı çevrim kontrol şeması</title>
+            <desc id="home-loop-desc">Referans ile ölçülen çıkış karşılaştırılır. Kontrolcü hata işaretine göre sistemi etkiler. Çıkış ölçülerek eksi girişe geri beslenir.</desc>
+            <defs>
+              <pattern id="home-grid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#829fc5" opacity=".15"/></pattern>
+              <marker id="home-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#b0c6e7"/></marker>
+              <marker id="home-feedback-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#8ad9bc"/></marker>
+            </defs>
+            <rect width="500" height="250" fill="url(#home-grid)"/>
+            <g fill="none" stroke="#b0c6e7" stroke-width="2">
+              <path d="M18 98H87" marker-end="url(#home-arrow)"/>
+              <path d="M125 98H168" marker-end="url(#home-arrow)"/>
+              <path d="M294 98H335" marker-end="url(#home-arrow)"/>
+              <path d="M444 98H488" marker-end="url(#home-arrow)"/>
+            </g>
+            <circle cx="107" cy="98" r="18" fill="#193651" stroke="#b0c6e7" stroke-width="2"/>
+            <text x="83" y="78" fill="#d9e6f4" font-size="19">+</text><text x="81" y="133" fill="#8ad9bc" font-size="23">−</text>
+            <text x="19" y="68" fill="#a7bdda" font-size="14">Referans</text><text x="145" y="75" text-anchor="middle" fill="#a7bdda" font-size="12">Hata</text>
+            <rect x="169" y="64" width="124" height="68" rx="10" fill="#29476c" stroke="#5476a3"/>
+            <text x="231" y="104" text-anchor="middle" fill="white" font-size="20" font-weight="600">Kontrolcü</text>
+            <rect x="337" y="64" width="106" height="68" rx="10" fill="#244256" stroke="#5d8494"/>
+            <text x="390" y="104" text-anchor="middle" fill="white" font-size="20" font-weight="600">Sistem</text>
+            <text x="455" y="67" fill="#a7bdda" font-size="13">Çıkış</text>
+            <circle cx="465" cy="98" r="4" fill="#8ad9bc"/>
+            <path d="M465 98V201H335" fill="none" stroke="#8ad9bc" stroke-width="2" marker-end="url(#home-feedback-arrow)"/>
+            <rect x="229" y="178" width="104" height="46" rx="8" fill="#1c493f" stroke="#468b73"/>
+            <text x="281" y="207" text-anchor="middle" fill="#c2f0df" font-size="17">Ölçme</text>
+            <path d="M229 201H107V119" fill="none" stroke="#8ad9bc" stroke-width="2" marker-end="url(#home-feedback-arrow)"/>
+            <text x="177" y="233" text-anchor="middle" fill="#83b8a6" font-size="12">Geri besleme</text>
+          </svg>
+          <figcaption>Ölç, karşılaştır, düzelt. Geri beslemeyle hedefe yaklaş.</figcaption>
+        </figure>
+      </section>
+      <section class="weeks" id="haftalar" aria-labelledby="weeks-title">
+        <div class="section-title"><h2 id="weeks-title">Ders haftaları</h2><p>Haftanı seç, anlatıma başla.</p></div>
+        <article class="week-card" aria-labelledby="week-one-title">
+          <div class="week-number" aria-hidden="true"><span>HAFTA</span><strong>01</strong></div>
+          <div class="week-content">
+            <div class="week-kicker"><span class="available">Sunum hazır</span><span>1. hafta · 8 konu başlığı</span></div>
+            <h3 id="week-one-title">Kontrol sistemlerine giriş</h3>
+            <p>Geri besleme, açık ve kapalı çevrim, kontrol örnekleri, temel kavramlar ve işaretler. Değerleri değiştir, sistemin tepkisini incele.</p>
+            <div class="topic-chips" aria-label="Örnek konular"><span>Sac levha</span><span>Sıvı seviye</span><span>Analog fırın</span><span>Bozucu etki</span><span>İşaretler</span></div>
+          </div>
+          <div class="week-actions"><a class="button" href="./hafta-1.html#temel-akis">1. haftayı aç <span aria-hidden="true">→</span></a><a class="pdf-link" href="./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf" target="_blank" rel="noopener">Ders notu · PDF ↗</a></div>
+        </article>
+        <div class="next-weeks"><strong>Diğer haftalar</strong><p>Yeni ders sunumları eklendikçe burada yer alacak.</p></div>
+      </section>
+      <section class="resources" id="kaynaklar" aria-labelledby="resources-title">
+        <div class="section-title"><h2 id="resources-title">Kaynak ders notları</h2><p>Prof. Dr. Ayhan Özdemir</p></div>
+        <div class="resource-grid">
+          <a class="resource" href="./2024%20OTOMAT%C4%B0K_KONTROL/Oto.Kontrol_1_2019.pdf" target="_blank" rel="noopener"><span class="resource-icon" aria-hidden="true">PDF</span><span><strong>1. hafta ders notu</strong><small>Sunumun kaynak metni</small></span><span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="resource" href="./2024%20OTOMAT%C4%B0K_KONTROL/i%C3%A7indekiler_2017.pdf" target="_blank" rel="noopener"><span class="resource-icon" aria-hidden="true">PDF</span><span><strong>İçindekiler</strong><small>Dersin konu sıralaması</small></span><span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="resource" href="./2024%20OTOMAT%C4%B0K_KONTROL/Kaynaklar_2017.pdf" target="_blank" rel="noopener"><span class="resource-icon" aria-hidden="true">PDF</span><span><strong>Kaynakça</strong><small>Ders notunun referansları</small></span><span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><p><strong>Otomatik Kontrol</strong> · Ders notları ve etkileşimli sunumlar</p><p>Kaynak ders notları: Prof. Dr. Ayhan Özdemir</p></footer>
+  </div>
 </body>
 </html>

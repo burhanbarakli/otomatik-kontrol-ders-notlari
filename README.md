@@ -4,9 +4,21 @@ Otomatik kontrol dersini tahtada anlatmak için hazırlanan Türkçe, etkileşim
 
 ## Açılış
 
-Depoyu bilgisayarınıza indirin ve `index.html` dosyasını güncel bir tarayıcıda açın. Kurulum, derleme, Python veya veritabanı gerekmez. Dosyaları ve klasörleri birlikte tutun.
+Depoyu bilgisayarınıza indirin ve `index.html` dosyasını güncel bir tarayıcıda açın. Ana sayfadaki **1. haftayı aç** bağlantısı, hazırlanan sunumu `hafta-1.html#temel-akis` adresinde başlatır. Sunumun sol üstündeki **← OTOMATİK KONTROL** bağlantısı ana sayfaya döner.
 
-Web sunucusunda kullanmak için `index.html`, CSS/JavaScript dosyaları, `assets` ve `2024 OTOMATİK_KONTROL` klasörünü aynı dizine yükleyin. PHP destekli bir sunucuda da doğrudan çalışır; PHP kodu gerekmez. Animasyonlar ve öğretim modellerinin hesapları tarayıcıda JavaScript ile çalışır.
+Kurulum, derleme, Python veya veritabanı gerekmez. Dosyaları ve klasörleri birlikte tutun.
+
+## Domain üzerinde kullanım
+
+`index.html`, `hafta-1.html`, bütün CSS/JavaScript dosyaları, `assets` ve `2024 OTOMATİK_KONTROL` klasörünü aynı dizine yükleyin. PHP destekli bir sunucuda da doğrudan çalışır; PHP kodu gerekmez. Animasyonlar ve öğretim modellerinin hesapları tarayıcıda JavaScript ile çalışır.
+
+`.git` ve `tmp` klasörlerini sunucuya yüklemek gerekmez.
+
+- Ana sayfa `index.html`, 1. hafta sunumu `hafta-1.html` dosyasıdır.
+- Göreli bağlantılar sayesinde dosyalar domain kökünde veya bir alt klasörde çalışabilir.
+- Klasör adlarının Türkçe karakterlerini ve dosya adlarının büyük/küçük harflerini koruyun.
+- Eski `index.html#sac-levha`, `index.html#isaretler` ve diğer ders bölümü bağlantıları, `hafta-1.html` içindeki aynı bölüme yönlendirilir.
+- Ana sayfadaki **Kaynaklar**, 1. hafta PDF’sini, içindekileri ve kaynakçayı açar. Diğer haftalar için henüz sunum bağlantısı eklenmemiştir.
 
 ## Sunumdaki konular
 
@@ -35,7 +47,8 @@ Ayrıntılı kullanım, model denklemleri ve öğretim için seçilen parametrel
 
 ## Dosya düzeni
 
-- `index.html`: ana sunum ve konu seçimi.
+- `index.html`, `home.css`: haftalık ders ana sayfası.
+- `hafta-1.html`: 1. hafta sunumu ve konu seçimi.
 - `rolling-mill.*`, `liquid-tank.*`, `analog-oven.*`, `escalator.*`: SVG/JavaScript animasyonları ve CSS stilleri.
 - `signals.*`: işaretler konusu ve etkileşimli grafikler.
 - `lesson-notes.css`: kavram sayfalarının düzeni.

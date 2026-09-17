@@ -1,6 +1,8 @@
 # Otomatik Kontrol — 1. hafta
 
-`index.html` dosyasını Chrome veya Edge ile açın. İnternet bağlantısı gerekmez. `rolling-mill.css`, `rolling-mill.js`, `liquid-tank.css`, `liquid-tank.js`, `analog-oven.css` ve `analog-oven.js` dosyalarını HTML ile aynı klasörde tutun.
+Ana giriş `index.html` sayfasıdır. **1. haftayı aç** bağlantısı, mevcut sunumu `hafta-1.html#temel-akis` adresinde başlatır. Sunumun sol üstündeki **← OTOMATİK KONTROL** bağlantısı ana sayfaya döner. Önceden paylaşılan `index.html#...` ders bağlantıları da aynı bölüme yönlendirilir.
+
+`hafta-1.html` dosyasını Chrome veya Edge ile açın. İnternet bağlantısı gerekmez. `rolling-mill.css`, `rolling-mill.js`, `liquid-tank.css`, `liquid-tank.js`, `analog-oven.css` ve `analog-oven.js` dosyalarını HTML ile aynı klasörde tutun.
 Kaynak görseller `assets` klasöründedir; sunumu taşırken bu klasörü de birlikte taşıyın.
 Sabit kavram sayfalarının görünümü için `lesson-notes.css` dosyasını da aynı klasörde tutun.
 Yürüyen merdiven animasyonu için `escalator.css` ve `escalator.js` dosyaları gereklidir.
@@ -46,7 +48,7 @@ Yürüyen merdiven animasyonu için `escalator.css` ve `escalator.js` dosyaları
 
 ## Analog fırın animasyonu
 
-- PDF’nin 4. sayfasındaki analog sıcaklık kontrolü temel alınmıştır. Özgün şekil `assets/analog-firin-sema.png` dosyasında korunur; animasyonun üstünde gösterilir. Bölüm bağlantısı: `index.html#analog-firin`.
+- PDF’nin 4. sayfasındaki analog sıcaklık kontrolü temel alınmıştır. Özgün şekil `assets/analog-firin-sema.png` dosyasında korunur; animasyonun üstünde gösterilir. Bölüm bağlantısı: `hafta-1.html#analog-firin`.
 - **Referans sıcaklık** 80–230 °C arasında değiştirilebilir. **Kapağı aç** ısı kaybını artırır; kontrolcü daha yüksek ısıtıcı gücüyle sıcaklığı yeniden referansa getirir.
 - Referans, hata ve kontrol işaretleri sürekli gerilimlerdir. Algılayıcı, yükseltici ve RC filtre negatif geri besleme yolundadır. Bu analog örnekte ADC ve DAC kullanılmaz.
 - **Gürültü ekle** ve **RC filtre açık / devre dışı** düğmeleri, filtre öncesindeki ve geri beslemeye verilen gerilimleri alt grafikte karşılaştırmayı sağlar. Son 4 saniye gösterilir; düşey ölçek otomatik değişir.
@@ -58,7 +60,7 @@ Yürüyen merdiven animasyonu için `escalator.css` ve `escalator.js` dosyaları
 
 ## Bozucu etki — yürüyen merdiven
 
-- **Bozucu** sekmesi veya `index.html#bozucu-merdiven` bağlantısı, yukarı çıkan yürüyen merdiven örneğini açar. Referans hız senaryo boyunca **0,50 m/s** olarak sabittir.
+- **Bozucu** sekmesi veya `hafta-1.html#bozucu-merdiven` bağlantısı, yukarı çıkan yürüyen merdiven örneğini açar. Referans hız senaryo boyunca **0,50 m/s** olarak sabittir.
 - Bir kişi alt kattan yürüyerek gelir, merdivene biner, hareketli basamaklarla yukarı taşınır ve üst katta iner. Basamak ve yolcu hareketi model hızına bağlıdır. Otomatik senaryo ilk binişi birkaç saniye sonra başlatır ve döngüyü tekrarlar.
 - Biniş, motora karşı koyan ek yük torkunu artırır. Hız kısa süre düşer; sensörden gelen pozitif hata üzerine işlemci motor torkunu artırır. Kişi üzerindeyken hız toparlanır, fakat yükü karşılamak için motor torku yüksek kalır.
 - İniş, ek yükü kaldırır. Önceki motor torku fazla geldiği için hız kısa süre artar; negatif hata oluşunca işlemci torku azaltır ve başlangıç dengesine döner.
@@ -88,11 +90,11 @@ Sekizinci başlık, PDF’nin 8–9. sayfalarındaki sabit R, L, C değerli devr
 
 Dokuzuncu başlıkta PDF’nin 10–11. sayfalarındaki varaktörlü, gerilime bağlı kapasite içeren lineer olmayan RLC örneği, tüm çözümü ve durum uzay modeliyle yer alır. Gönderilen uzun görsel değiştirilmeden korunur; kaynak PDF’ye doğrudan bağlantı bulunur.
 
-Bölümün genel bağlantısı `index.html#ders-notlari` şeklindedir. Görsellerin içeriği değiştirilmeden `assets` klasörüne kopyalanmıştır. Bu bölümde Boşluk tuşu sayfayı kaydırır; **F** ve **Tam ekran** sunum için kullanılabilir.
+Bölümün genel bağlantısı `hafta-1.html#ders-notlari` şeklindedir. Görsellerin içeriği değiştirilmeden `assets` klasörüne kopyalanmıştır. Bu bölümde Boşluk tuşu sayfayı kaydırır; **F** ve **Tam ekran** sunum için kullanılabilir.
 
 ## İşaretler — PDF s. 11–13
 
-- **İşaretler** sekmesi veya `index.html#isaretler` bağlantısı beş başlığı tek sayfada açar. Üstteki bölüm bağlantıları sayfayı ilgili başlığa kaydırır; otomatik ilerleme yoktur. Şekiller SVG olarak yeniden çizilmiştir.
+- **İşaretler** sekmesi veya `hafta-1.html#isaretler` bağlantısı beş başlığı tek sayfada açar. Üstteki bölüm bağlantıları sayfayı ilgili başlığa kaydırır; otomatik ilerleme yoktur. Şekiller SVG olarak yeniden çizilmiştir.
 - Sıra: işaret tanımı ve f(t) gösterimi → sürekli / süreksiz işaret → ayrık zaman ve örnekleme → sürekli zamanlı motor kontrolü → ADC, sayısal işlemci, DAC ve hibrit yapı. Sayfa 11’in başındaki önceki RLC çözümüne Kavramlar bölümünden bağlantı verilir.
 - **Yaklaşma uzaklığı δ** sürgüsü sinüste π noktasının, darbede 0 noktasının sağından ve solundan yaklaşımı gösterir. **Noktaya yaklaş** uzaklığı 0,05’e getirir; tekrar basıldığında başlangıca döner. Görünen sayılar sonlu uzaklıktaki değerlerdir; alt denklemler limitleri verir. Süreklilik için iki limitin fonksiyonun o noktadaki değerine de eşit olması gerektiği açıklanır.
 - Darbe çiziminde f(0) = 0 seçilmiştir. Açık uçlar dışlanan, dolu uçlar dahil edilen değerleri gösterir. Sıçramalı işaretlerin de sürekli zamanda tanımlı olabileceği vurgulanır.
@@ -105,4 +107,4 @@ Bölümün genel bağlantısı `index.html#ders-notlari` şeklindedir. Görselle
 
 Kapsam: 1. hafta PDF’sindeki kontrol tanımı, ilk akış diyagramı, kapalı çevrim kontrol blok diyagramı, sac levha kalınlık kontrolü, sıvı seviye kontrolü, analog sıcaklık kontrolü, temel kavramlar ve RLC örnekleri; ayrıca bozucu etki animasyonu ve s. 11–13 işaretler konusu.
 
-Kaynak bağlantısının çalışması için `index.html` ile `2024 OTOMATİK_KONTROL` klasörünü aynı dizinde tutun.
+Kaynak bağlantısının çalışması için `hafta-1.html` ile `2024 OTOMATİK_KONTROL` klasörünü aynı dizinde tutun.
