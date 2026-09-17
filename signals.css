@@ -1,0 +1,94 @@
+/* Week 1, pp. 11–13. Vector figures and teacher-controlled demonstrations. */
+.board.signals-mode{height:auto;min-height:100svh}
+.signals-mode .purpose,.signals-mode .brand span{display:none}
+.signals-workspace{padding:4px 0 40px;--sig-blue:#2950db;--sig-teal:#087974;--sig-amber:#a64a06}
+.sig-nav{display:flex;flex-wrap:wrap;gap:8px;padding:8px 0 20px;border-bottom:1px solid var(--line)}
+.sig-nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:7px;background:white;padding:11px 15px;font-size:15px}
+.sig-nav a:hover{border-color:var(--blue);background:var(--tint)}
+.sig-nav b{color:var(--blue);font-weight:600;margin-right:7px}
+.sig-section{padding:36px 0 8px;scroll-margin-top:24px}
+.sig-heading{display:flex;align-items:baseline;gap:16px;margin-bottom:18px}
+.sig-heading>span{font-size:16px;color:var(--blue);font-weight:650}
+.sig-heading h2{margin:0;font-size:clamp(26px,2.2vw,38px);letter-spacing:-.025em;font-weight:650}
+.sig-heading small{margin-left:auto;white-space:nowrap;font-size:14px;color:var(--muted)}
+.sig-lead{font-size:clamp(19px,1.45vw,25px);line-height:1.55;max-width:1260px;margin:0 0 22px}
+.sig-card{min-width:0;background:white;border:1px solid var(--line);border-radius:14px;padding:24px;overflow:hidden}
+.sig-card h3{font-size:24px;font-weight:650;margin:0 0 9px;letter-spacing:-.02em}
+.sig-card p{font-size:18px;line-height:1.5;margin:10px 0 0}
+.sig-eyebrow{font-size:12px;font-weight:700;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
+.sig-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sig-definition{display:grid;grid-template-columns:.8fr 1.4fr;gap:22px}
+.sig-notation{background:#142b4b;color:#fff;padding:30px;border:0}
+.sig-notation .sig-eyebrow{color:#b3c6e4}
+.sig-notation .sig-symbol{font-size:74px;line-height:1.15;font-family:Cambria,Georgia,serif;font-style:italic;letter-spacing:-.06em;margin:10px 0 20px;color:white}
+.sig-notation .sig-symbol span{color:#80d9d6}
+.sig-notation dl{display:grid;grid-template-columns:55px 1fr;gap:12px;margin:0;font-size:18px;line-height:1.4}
+.sig-notation dt{font-family:Cambria,Georgia,serif;font-size:24px;font-style:italic;color:#a6d3ff}
+.sig-notation dd{margin:0;color:#e1eafa}
+.sig-examples{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.sig-examples span{border:1px solid #496080;color:#e1eafa;border-radius:6px;padding:7px 10px;font-size:14px}
+.sig-classify{display:grid;gap:14px;margin-top:18px}
+.sig-classify>div{border-left:4px solid var(--sig-blue);padding:13px 17px;background:#f1f5ff;border-radius:0 8px 8px 0}
+.sig-classify>div:last-child{border-color:var(--sig-teal);background:#eef8f6}
+.sig-classify strong{font-size:21px}.sig-classify p{margin-top:5px}
+.sig-classify small{display:block;font-size:15px;color:var(--muted);margin-top:8px}
+.sig-bridge{color:var(--muted);font-size:14px;margin:15px 0 0}.sig-bridge a,.sig-source a{color:var(--blue)}
+.sig-tools{display:flex;align-items:center;flex-wrap:wrap;gap:14px 24px;padding:18px 22px;margin-bottom:20px;background:#edf2fa;border:1px solid #d9e2ef;border-radius:10px}
+.sig-tools label{display:flex;gap:13px;align-items:center;font-size:17px;font-weight:600;flex-wrap:wrap}
+.sig-tools input[type=range]{width:210px;max-width:100%;accent-color:var(--blue);min-height:30px;cursor:pointer}
+.sig-tools output{font-variant-numeric:tabular-nums;color:var(--blue);font-size:18px;min-width:74px}
+.sig-tools>p{font-size:15px;color:var(--muted);margin:0;line-height:1.4}
+.sig-tools button{min-height:42px;font-size:15px}
+.sig-plot{margin:16px 0 0}
+.sig-plot svg{width:100%;height:auto;display:block;overflow:visible}
+.signals-workspace svg{font-family:"Segoe UI",Arial,sans-serif}
+.signals-workspace svg text{fill:#14243e;font-size:18px}
+.signals-workspace svg .sg-small{font-size:15px;fill:#536880}
+.signals-workspace svg .sg-label{font-size:20px;font-weight:600}
+.signals-workspace svg .sg-grid{fill:none;stroke:#e0e7f1;stroke-width:1}
+.signals-workspace svg .sg-axis{fill:none;stroke:#6a7e98;stroke-width:1.6}
+.signals-workspace svg .sg-blue{fill:none;stroke:var(--sig-blue);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.signals-workspace svg .sg-amber{fill:none;stroke:var(--sig-amber);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.signals-workspace svg .sg-teal{fill:none;stroke:var(--sig-teal);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.signals-workspace svg .sg-dashed{stroke-dasharray:6 5}
+.sig-plot figcaption{font-size:15px;line-height:1.5;color:var(--muted);margin-top:8px}
+.sig-limits{font-family:Cambria,Georgia,serif;font-size:24px;line-height:1.6;display:flex;align-items:baseline;justify-content:center;gap:8px;flex-wrap:wrap;margin:17px 0 5px}
+.sig-limits .sig-lim{display:inline-flex;flex-direction:column;align-items:center;line-height:1.1;vertical-align:middle;font-size:21px;margin-right:3px}
+.sig-lim small{font-size:12px}.sig-limits sup{font-size:.6em}
+.sig-live-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.sig-live-pair>div{border-radius:7px;background:#f3f6fc;padding:10px 12px;font-size:14px;color:var(--muted)}
+.sig-live-pair strong{display:block;font-size:22px;color:var(--blue);font-variant-numeric:tabular-nums;margin-top:3px}
+.sig-live-pair>div:last-child strong{color:var(--sig-teal)}
+.sig-insight{display:flex;gap:16px;padding:20px 23px;margin:20px 0 0;border-radius:10px;background:#e7f3f0;border-left:4px solid var(--sig-teal);align-items:baseline}
+.sig-insight strong{flex-shrink:0;font-size:18px;color:#08675f}.sig-insight p{font-size:18px;line-height:1.5;margin:0}
+.sig-amber-note{background:#fff4e8;border-color:#c66b21}.sig-amber-note strong{color:#934506}
+.sig-equation{font-family:Cambria,Georgia,serif;font-size:clamp(23px,2.1vw,34px);line-height:1.4;color:var(--blue);margin:14px 0 20px}
+.sig-sample-head{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.sig-sample-head h3{margin:0}.sig-sample-head span{font-size:16px;color:var(--muted)}
+.sig-mode-buttons{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.sig-mode-buttons button{font-size:15px;font-weight:500}
+.sig-sample-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px;padding-top:17px;border-top:1px solid var(--line)}
+.sig-sample-info span{font-size:14px;display:block;color:var(--muted)}.sig-sample-info strong{font-size:22px;display:block;margin-top:5px;font-weight:600;font-variant-numeric:tabular-nums}
+.sig-mode-note{min-height:54px;font-size:18px;line-height:1.5;margin:20px 0 0}
+.sig-diagram-scroll{overflow-x:auto;overscroll-behavior-x:contain;margin:20px 0 0}
+.sig-diagram-scroll svg{width:100%;min-width:800px;height:auto;display:block}
+.sig-diagram-caption{display:flex;flex-wrap:wrap;gap:12px 28px;font-size:15px;color:var(--muted);line-height:1.5;margin-top:14px}
+.sig-diagram-caption span:before{content:"";display:inline-block;width:24px;height:3px;vertical-align:middle;margin-right:9px;background:var(--sig-blue)}
+.sig-diagram-caption span:nth-child(2):before{background:var(--sig-amber)}
+.sig-summary-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:22px}
+.sig-summary-row>div{border-top:3px solid #aabde1;padding-top:13px}
+.sig-summary-row strong{font-size:19px;line-height:1.4}.sig-summary-row p{font-size:17px;color:var(--muted);line-height:1.5}
+.sig-boundary{color:var(--muted);font-size:15px;line-height:1.5;margin:20px 0 0}
+.sig-wave-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:20px}
+.sig-wave-card{padding:15px 12px;background:#f4f7fc;border-radius:9px;border:1px solid #e0e6f0;min-width:0}
+.sig-wave-card h4{font-size:16px;font-weight:650;margin:0;line-height:1.4}
+.sig-wave-card svg{display:block;width:100%;height:auto;margin:10px 0}
+.sig-wave-card p{font-size:14px;margin:0;line-height:1.5;color:var(--muted)}
+.sig-compare{width:100%;border-collapse:collapse;margin-top:24px;font-size:17px;line-height:1.45}
+.sig-compare th,.sig-compare td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.sig-compare th{background:#edf2fa;font-weight:650}.sig-compare td:first-child{font-weight:600}
+.sig-source{font-size:14px;color:var(--muted);line-height:1.5;margin-top:24px}
+.sig-source a{white-space:nowrap}
+@media(min-width:1101px) and (max-width:1510px){.topbar{flex-wrap:wrap}.topbar .topic-nav{order:3;width:100%;margin-left:0;justify-content:space-between}.topbar .topic-nav button{flex:1}.top-actions{margin-left:auto}}
+@media(max-width:1000px){.sig-definition{grid-template-columns:1fr 1.3fr}.sig-two{grid-template-columns:1fr}.sig-plot svg{max-height:380px}.sig-wave-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sig-insight{display:block}.sig-insight p{margin-top:7px}.sig-summary-row{gap:14px}.sig-heading h2{font-size:27px}}
+@media(max-width:640px){.sig-section{padding-top:28px}.sig-card{padding:18px 14px;border-radius:10px}.sig-definition{grid-template-columns:1fr}.sig-notation{padding:23px}.sig-notation .sig-symbol{font-size:60px;margin:4px 0 12px}.sig-heading{gap:10px;flex-wrap:wrap}.sig-heading h2{font-size:25px}.sig-heading small{font-size:12px}.sig-heading>span{font-size:14px}.sig-lead{font-size:18px}.sig-tools{padding:15px;gap:13px}.sig-tools label{gap:8px;width:100%}.sig-tools input[type=range]{flex:1;min-width:100px}.sig-tools output{font-size:17px}.sig-card h3{font-size:23px}.sig-card p,.sig-insight p{font-size:17px}.sig-mode-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sig-mode-buttons button{font-size:13px;padding:9px 5px}.sig-sample-info{gap:8px}.sig-sample-info strong{font-size:17px}.sig-sample-info span{font-size:12px}.sig-summary-row{grid-template-columns:1fr;gap:20px}.sig-wave-grid{gap:9px}.sig-wave-card{padding:12px 9px}.sig-wave-card h4{font-size:15px}.sig-wave-card p{font-size:13px}.sig-limits{font-size:22px;gap:5px}.sig-nav{gap:6px}.sig-nav a{font-size:13px;padding:10px 9px}.sig-compare{font-size:14px}.sig-compare th,.sig-compare td{padding:12px 7px}.sig-compare th:first-child{width:28%}.sig-bridge{font-size:13px}.sig-mode-note{min-height:100px}.sig-insight{padding:16px}.sig-live-pair strong{font-size:20px}}
+@media print{.signals-mode .topbar,.signals-mode .intro,.sig-nav,.sig-tools,.sig-mode-buttons{display:none}.sig-section{break-before:page;padding-top:0}.sig-section:first-of-type{break-before:auto}.sig-card{break-inside:avoid}.sig-two{grid-template-columns:1fr 1fr}.sig-diagram-scroll{overflow:visible}.sig-diagram-scroll svg{min-width:0}.sig-wave-grid{grid-template-columns:repeat(4,1fr)}.sig-definition{grid-template-columns:1fr 1.4fr}.sig-notation{color:var(--ink);background:#edf2fa}.sig-notation .sig-symbol,.sig-notation dd,.sig-notation dt,.sig-notation .sig-eyebrow,.sig-examples span{color:var(--ink)}}

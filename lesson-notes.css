@@ -1,0 +1,24 @@
+/* Static course figures, in the order supplied by the lecturer. */
+.board.notes-mode{height:auto;min-height:100svh}
+.notes-mode .brand span,.notes-mode .purpose{display:none}
+.notes-workspace{padding:6px 0 28px}
+.notes-nav{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:8px;padding:12px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.notes-nav a{display:flex;align-items:center;gap:8px;padding:12px 10px;min-height:48px;background:var(--paper);border:1px solid var(--line);border-radius:7px;color:var(--ink);text-decoration:none;font-size:14px;line-height:1.3}
+.notes-nav a:hover{background:var(--tint);border-color:var(--blue)}
+.notes-nav a span{font-size:12px;color:var(--blue);font-variant-numeric:tabular-nums}
+.notes-sheet{padding-top:30px;scroll-margin-top:100px}
+.notes-sheet h2{display:flex;gap:14px;align-items:baseline;margin:0 0 14px;font-size:clamp(23px,2vw,34px);line-height:1.25;font-weight:650}
+.notes-sheet h2 span{font-size:.6em;color:var(--blue);font-weight:500}
+.notes-sheet .lesson-source-figure{padding:14px 22px 22px}
+.notes-sheet .lesson-source-figure img{width:100%;max-width:1320px;height:auto;max-height:calc(100svh - 190px);object-fit:contain;margin:auto}
+.notes-sheet:last-child{padding-bottom:8px}
+.notes-sheet.notes-long .lesson-source-figure img{max-height:none;max-width:1000px}
+.notes-source-link{margin:12px 0 0;font-size:14px}.notes-source-link a{color:var(--blue)}
+.notes-comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.notes-comparison-grid .lesson-source-figure{min-width:0;padding:14px 14px 18px}
+.notes-comparison-grid figcaption{font-size:13px;gap:10px}
+.notes-comparison-grid .lesson-source-figure img{max-height:none}
+@media(max-width:1100px){.notes-comparison-grid{grid-template-columns:1fr}}
+@media(min-width:801px) and (max-width:1100px){.topbar{flex-wrap:wrap}.topbar .topic-nav{order:3;width:100%;margin-left:0;justify-content:space-between}.topbar .topic-nav button{flex:1}.notes-nav{grid-template-columns:repeat(3,minmax(0,1fr))}.notes-nav a{padding:9px 12px;min-height:42px}.notes-sheet{scroll-margin-top:180px}}
+@media(max-width:800px){.topbar .topic-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.notes-nav{position:static;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.notes-nav a{font-size:13px;padding:10px 8px}.notes-sheet{padding-top:24px;scroll-margin-top:16px}.notes-sheet h2{font-size:23px;gap:10px}.notes-sheet .lesson-source-figure{padding:12px 9px}.notes-sheet .lesson-source-figure img{max-height:none;width:100%}}
+@media print{.notes-nav,.notes-mode .topbar,.notes-mode .intro,.notes-mode .footer,.notes-sheet figcaption a{display:none}.notes-sheet{break-inside:avoid;break-after:page;padding-top:0}.notes-sheet:last-child{break-after:auto}.notes-sheet .lesson-source-figure{border:0;padding:0}.notes-sheet .lesson-source-figure img{max-height:80vh}.notes-comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
